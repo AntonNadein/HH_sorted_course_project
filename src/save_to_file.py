@@ -26,8 +26,7 @@ class SaveToJson(SaveToFile):
     def __init__(self, file_name: str = None, list_to_save: list = None) -> None:
         self.__file_name = f"{file_name}.json" if file_name else "Vacancies.json"
         self.list_to_save = list_to_save if list_to_save else []
-        self.__path_to_file = os.path.join(
-            os.path.dirname(__file__), "..", "data", self.__file_name)
+        self.__path_to_file = os.path.join(os.path.dirname(__file__), "..", "data", self.__file_name)
 
     @property
     def file_name(self):

@@ -10,7 +10,7 @@ class SortingVacancy(ABC):
 
     @classmethod
     @abstractmethod
-    def cast_to_object_list(cls, list_vacancy):
+    def cast_to_object_list(cls, list_vacancy) -> list:
         pass
 
     @abstractmethod
@@ -46,7 +46,7 @@ class SortingVacancyHeadHunter(SortingVacancy):
         self.url = url
 
     @classmethod
-    def cast_to_object_list(cls, list_vacancy: list):
+    def cast_to_object_list(cls, list_vacancy: list) -> list:
         """
         Метод для создания списка экземпляров класса из полученного API или Json-файла
         :param list_vacancy: API или Json-файл
@@ -98,7 +98,7 @@ class SortingVacancyHeadHunter(SortingVacancy):
         return self.__salary == salary
 
     @staticmethod
-    def sorting_vacancy_to_salary(list_vacancy, reverse=True):
+    def sorting_vacancy_to_salary(list_vacancy, reverse=True) -> list:
         """
         Метод для сортировки списка экземпляров класса по зарплате
         :param list_vacancy: список экземпляров класса
@@ -106,40 +106,3 @@ class SortingVacancyHeadHunter(SortingVacancy):
         :return: Отсортированный список
         """
         return sorted(list_vacancy, key=lambda i: i.__salary, reverse=reverse)
-
-
-# if __name__ == "__main__":
-#     # получение вакансий с API
-#     hh_api = HeadHunterAPI("Python", 3)  # при поиске отработать ошибку нет города 7,6
-#     # hh_api1 = HeadHunterAPI("Юрист")
-#     vacancy_list = hh_api.get_vacancies
-#     # редактирование полученного списка
-#     # vacancy = SortingVacancyHeadHunter("test", None, "test3", "test4")
-#     # vacancy1 = SortingVacancyHeadHunter.add_list_vacancy(VL)
-#     vacancy = SortingVacancyHeadHunter.cast_to_object_list(vacancy_list)
-#
-#     print(vacancy[1])
-#     print("--- " * 10)
-#     # сравнение
-#     vacancy1 = vacancy[0]
-#     vacancy2 = vacancy[1]
-#     print(vacancy1 > vacancy2)
-#     print(vacancy1 == vacancy2)
-#     print("--- " * 10)
-#
-#     for i in vacancy:
-#         print(i)
-#     print("--- " * 10)
-#     # сортировка по вакансиям
-#     sort_vacancy = SortingVacancyHeadHunter.sorting_vacancy_to_salary(vacancy, False)
-#     for i in sort_vacancy:
-#         print(i)
-#     print("--- " * 10)
-#     # топ N вакансий
-#     for i in range(5):
-#         print(sort_vacancy[i])
-#     print("--- " * 10)
-#     # отсев зарплат
-#     for i in sort_vacancy:
-#         if i > 50000:
-#             print(i)

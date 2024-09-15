@@ -1,7 +1,5 @@
 import json
-import os
 import tempfile
-from json import JSONDecodeError
 from unittest.mock import patch
 
 import pytest
@@ -60,12 +58,10 @@ def test_open_json_file_for_class_error_1(test_init_save_to_json_2):
 
 def test_add_vacancy_to_file():
     """Тест сохранения данных в файл json"""
-    with tempfile.NamedTemporaryFile(mode='w', delete=False) as temp_file:
+    with tempfile.NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file_path = temp_file.name
     # Создаем экземпляр класса и сохраняем
-    vacancy = SortingVacancyHeadHunter(
-        "1", "разработчик", 3000, "Санкт-Петербург", "https://hh.ru/"
-    )
+    vacancy = SortingVacancyHeadHunter("1", "разработчик", 3000, "Санкт-Петербург", "https://hh.ru/")
     obj = SaveToJson(temp_file_path, [vacancy])
     obj.save_to_new_file()
 
@@ -73,20 +69,18 @@ def test_add_vacancy_to_file():
         saved_data = json.load(file)
 
     assert saved_data == [
-        {'city': 'Санкт-Петербург', 'id': '1', 'name': 'разработчик', 'salary': 3000, 'url': 'https://hh.ru/'}]
+        {"city": "Санкт-Петербург", "id": "1", "name": "разработчик", "salary": 3000, "url": "https://hh.ru/"}
+    ]
 
 
 def test_unique_vacancy_to_file():
-    """Тест сохранения данных в файл json"""
-    with tempfile.NamedTemporaryFile(mode='w', delete=False) as temp_file:
+    """Тест добавления уникальных данных в файл json"""
+    with tempfile.NamedTemporaryFile(mode="w", delete=False) as temp_file:
         temp_file_path = temp_file.name
     # Создаем экземпляр класса и сохраняем
-    vacancy_1 = SortingVacancyHeadHunter(
-        "1", "разработчик", 3000, "Санкт-Петербург", "https://hh.ru/")
-    vacancy_2 = SortingVacancyHeadHunter(
-        "2", "разработчик", 3000, "Санкт-Петербург", "https://hh.ru/")
-    vacancy_3 = SortingVacancyHeadHunter(
-        "3", "разработчик", 3000, "Санкт-Петербург", "https://hh.ru/")
+    vacancy_1 = SortingVacancyHeadHunter("1", "разработчик", 3000, "Санкт-Петербург", "https://hh.ru/")
+    vacancy_2 = SortingVacancyHeadHunter("2", "разработчик", 3000, "Санкт-Петербург", "https://hh.ru/")
+    vacancy_3 = SortingVacancyHeadHunter("3", "разработчик", 3000, "Санкт-Петербург", "https://hh.ru/")
     obj = SaveToJson(temp_file_path, [vacancy_1, vacancy_2])
     obj.save_to_new_file()
     obj2 = SaveToJson(temp_file_path, [vacancy_2, vacancy_3, vacancy_1])
@@ -95,4 +89,8 @@ def test_unique_vacancy_to_file():
     with open(f"{temp_file_path}.json", "r", encoding="utf-8") as file:
         saved_data = json.load(file)
 
-    assert saved_data == [{'id': '1', 'name': 'разработчик', 'salary': 3000, 'city': 'Санкт-Петербург', 'url': 'https://hh.ru/'}, {'id': '2', 'name': 'разработчик', 'salary': 3000, 'city': 'Санкт-Петербург', 'url': 'https://hh.ru/'}, {'id': '3', 'name': 'разработчик', 'salary': 3000, 'city': 'Санкт-Петербург', 'url': 'https://hh.ru/'}]
+    assert saved_data == [
+        {"id": "1", "name": "разработчик", "salary": 3000, "city": "Санкт-Петербург", "url": "https://hh.ru/"},
+        {"id": "2", "name": "разработчик", "salary": 3000, "city": "Санкт-Петербург", "url": "https://hh.ru/"},
+        {"id": "3", "name": "разработчик", "salary": 3000, "city": "Санкт-Петербург", "url": "https://hh.ru/"},
+    ]

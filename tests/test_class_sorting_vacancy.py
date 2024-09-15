@@ -72,3 +72,9 @@ def test_cast_to_object_list_comparison_error(test_list_dict_for_class_sort):
     with pytest.raises(TypeError):
         vacancy = SortingVacancyHeadHunter.cast_to_object_list(test_list_dict_for_class_sort)
         print(vacancy[0] > "20000")
+
+
+def test_sorting_vacancy_print():
+    """Тест вывода информации"""
+    vacancy_1 = SortingVacancyHeadHunter("3", "Разработчик", 30000, "Уфа", "http://test_3")
+    assert str(vacancy_1) == "Вакансия: Разработчик Зарплата: 30000 Город: Уфа Ссылка: http://test_3"
